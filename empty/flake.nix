@@ -2,21 +2,24 @@
   description = "Empty flake";
 
   outputs = { self, systems, nixpkgs, ... }: let
-    eachSystem = c: nixpkgs.lib.genAttrs (import systems) (system: c ({
-      inherit system;
-      pkgs = nixpkgs.legacyPackages.${system};
-    }));
+    eachSystem = c: nixpkgs.lib.genAttrs (import systems) (system: c (
+      import nixpkgs {
+        inherit system;
+        overlays = [ self.overlays.default ];
+      }
+    ));
   in {
-    packages = eachSystem ({ system, ... }: {
-      hello = nixpkgs.legacyPackages.${system}.hello;
+    packages = eachSystem (pkgs: {
     });
 
-    devShells = eachSystem ({ system, pkgs, ... }: {
+    devShells = eachSystem (pkgs: {
       default = pkgs.mkShell {
         buildInputs = with pkgs; [
         ];
       };
     });
+
+    overlays.default = import ./overlay.nix;
   };
 
   inputs = {
