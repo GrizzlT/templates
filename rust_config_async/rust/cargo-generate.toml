@@ -1,0 +1,2 @@
+[placeholders]
+env_prefix = { prompt = "Enter the prefix for environment config variables", type = "string", regex = "^(?:[[:upper:]]+_)*[[:upper:]]+$" }

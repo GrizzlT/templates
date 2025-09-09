@@ -17,7 +17,7 @@ use tracing::info;
 #[derive(Parser, Debug)]
 struct ConfigCli {
     /// Path for the configuration file. Can also be set using the
-    /// `{{ crate_name | shouty_snake_case }}_CONFIG_FILE` env var. If not provided, `config.yml` will be
+    /// `{{ env_prefix }}_CONFIG_FILE` env var. If not provided, `config.yml` will be
     /// attempted.
     #[arg(long)]
     pub config_file: Option<PathBuf>,
@@ -25,7 +25,7 @@ struct ConfigCli {
 
 #[derive(Deserialize, Debug)]
 struct ConfigEnv {
-    #[serde(rename = "{{ crate_name }}_config_file")]
+    #[serde(rename = "{{ env_prefix | snake_case }}_config_file")]
     pub config_file: Option<PathBuf>,
 }
 
@@ -58,7 +58,7 @@ impl Config {
         // Note: We exclude whitelist from automatic env parsing and handle it manually
         let mut file = Figment::from(Serialized::defaults(ConfigFile::default()))
             .merge(Yaml::file(config_path))
-            .merge(Env::prefixed("{{ crate_name | shouty_snake_case }}_").split("__"))
+            .merge(Env::prefixed("{{ env_prefix }}_").split("__"))
             .extract::<ConfigFile>()
             .context("failed to parse config file")?;
 
