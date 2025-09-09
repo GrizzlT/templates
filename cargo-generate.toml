@@ -1,0 +1,3 @@
+[template]
+sub_templates = ["rust_config_async/rust"]
+
