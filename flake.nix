@@ -9,7 +9,7 @@
       };
       rustAsyncCli = {
         description = "Rust project with config file support and async main loop";
-        path = ./rust_config_async;
+        path = ./rust_config_async/nix;
       };
     };
   };
