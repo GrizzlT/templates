@@ -8,7 +8,7 @@
         path = ./empty;
       };
       rustAsyncCli = {
-        description = "Rust project with config file support and async main loop";
+        description = "Rust project flake with openssl and rust-overlay";
         path = ./rust_config_async/nix;
       };
     };
