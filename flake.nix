@@ -11,6 +11,10 @@
         description = "Rust project flake with openssl and rust-overlay";
         path = ./rust_config_async/nix;
       };
+      typescript = {
+        description = "Simple typescript setup";
+        path = ./typescript/nix;
+      };
     };
   };
 }
