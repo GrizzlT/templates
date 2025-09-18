@@ -3,7 +3,6 @@
   let
     pkgs' = system: import nixpkgs {
       inherit system;
-      overlays = [ inputs.rust-overlay.overlays.default ];
     };
     forSystems = f: nixpkgs.lib.genAttrs (import systems) (system: let
       pkgs = pkgs' system;
