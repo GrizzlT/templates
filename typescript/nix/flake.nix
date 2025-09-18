@@ -13,7 +13,7 @@
         options = let
           first = args options;
         in {
-          buildInputs = first.buildInputs ++ [
+          buildInputs = first.buildInputs or [] ++ [
             nodejs
             pkgs.typescript-language-server
           ];
